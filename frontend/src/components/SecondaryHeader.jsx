@@ -85,7 +85,7 @@ function SecondaryHeader() {
         <div className="flex items-center justify-between flex-grow ">
           <div className="flex items-center space-x-20 capitalize">
             <button className=" px-20 py-8 font-bold text-justify text-blue-950 w-30 h-10 hover:bg-blue-950 hover:bg-cover hover:text-white transition">
-              Home
+              <a href="/">Home</a>
             </button>
             <button className=" px-20 py-8 font-bold text-justify text-blue-950 w-30 h-10 hover:bg-blue-950 hover:bg-cover hover:text-white transition">
               <a href="/shop">Shop</a>
