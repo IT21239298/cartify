@@ -95,7 +95,7 @@ const Menu = () => {
               Show Reviews
             </button>
             <Link
-          to="/anaysys"
+          to={`/addreviews/${productDisplay._id}`}
           className="bg-gray-700 border-primary text-white px-6 py-3 font-medium 
           rounded-md hover:bg-gray-600 hover:text-white cursor-grab"
           onClick={handleAddReviews}
