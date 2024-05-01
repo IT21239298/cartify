@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCartItems } from "../../services/redux/productSlice";
 import axios from "axios";
-import { toast } from "react-hot-toast"
+import { toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../utils/constants";
 import Reviews from "../../components/reviews/showReviews";
 import DefaultButton from "../../components/home/DefaultButton";
@@ -14,26 +14,13 @@ const Menu = () => {
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.product.productList);
   const [showReviews, setShowReviews] = useState(false); // State to control the visibility of reviews
+  const [selectedProductDetails, setSelectedProductDetails] = useState(null); // State to store selected product details
 
   useEffect(() => {
     dispatch(fetchAllCartItems());
   }, [dispatch]);
 
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
-
-  // useEffect(() => {
-  //   const fetchAllContents = async () => {
-  //     try {
-  //       const res = await axios.get(`http://localhost:8082/cart/${productDisplay._id}`);
-
-  //       console.log("Sithum sfsff", res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   fetchAllContents();
-  // }, [dispatch]); // Include dispatch in dependency array
-  // console.log("rergregg  iddd",productDisplay._id);
 
   const handleAddCartProduct = () => {
     const productDisplayWithQty = { ...productDisplay, qty: 1 };
@@ -59,10 +46,9 @@ const Menu = () => {
   };
 
   const handleAddReviews = () => {
-    // Functionality for adding reviews
-    console.log("Add reviews button clicked");
+    // Set the selected product details
+   
   };
-
   return (
     <div className="p-8">
       <div className="w-full min-w-[600px] max-w-[200px] bg-white hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col mx-auto rounded-3xl">
@@ -77,6 +63,9 @@ const Menu = () => {
           <div className="p-2 flex flex-col gap-1">
             <h3 className="text-3xl font-sans text-gray-800 text-justify font-medium mb-2 capitalize -mt-2">
               {productDisplay.title}
+            </h3>
+            <h3>
+              {productDisplay._id}
             </h3>
             <p className="text-slate-500 font-medium text-2xl">
               {productDisplay.categories}
@@ -105,13 +94,15 @@ const Menu = () => {
             >
               Show Reviews
             </button>
-            <button
-              className="bg-gray-700 border-primary text-white px-6 py-3 font-medium 
-              rounded-md hover:bg-gray-600 hover:text-white cursor-grab   "
-              onClick={handleAddReviews}
-            >
-              Add Reviews
-            </button>
+            <Link
+          to="/anaysys"
+          className="bg-gray-700 border-primary text-white px-6 py-3 font-medium 
+          rounded-md hover:bg-gray-600 hover:text-white cursor-grab"
+          onClick={handleAddReviews}
+        >
+          Add Reviews
+        </Link>
+
           </div>
         )}
         {/* Cancel button */}

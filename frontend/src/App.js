@@ -27,6 +27,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import Analysis from "./pages/analys";
 
 
 
@@ -66,6 +67,7 @@ function App() {
         <Route path="menu/:filterby" element={<Menu />} />
 
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/anaysys" element={<Analysis />} />
       </Routes>
       <FooterSecondary />
     </BrowserRouter>
