@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCartItems } from "../../services/redux/productSlice";
 import axios from "axios";
-import { toast } from "react-hot-toast"
+import { toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../utils/constants";
 import Reviews from "../../components/reviews/showReviews";
 import DefaultButton from "../../components/home/DefaultButton";
@@ -18,7 +18,6 @@ const Menu = () => {
 
   const [openDialog, setOpenDialog] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-
 
   const handleOpen = () => {
     setOpenDialog(true);
@@ -54,10 +53,9 @@ const Menu = () => {
     setShowReviews(false);
   };
 
-
   return (
     <div className="p-8">
-       <Link to={"/shop"}>
+      <Link to={"/shop"}>
         <div className="flex cursor-pointer">
           <div className="ml-32">
             <box-icon name="undo" size="40px"></box-icon>
@@ -90,13 +88,22 @@ const Menu = () => {
             </p>
             <div className="flex items-center ml-4 mt-1 mb-1">
               <div className="flex gap-1 text-lg text-yellow-500">
-                <span><i className="fa-solid fa-star"></i></span>
-                <span><i className="fa-solid fa-star"></i></span>
-                <span><i className="fa-solid fa-star"></i></span>
-                <span><i className="fa-solid fa-star"></i></span>
-                <span><i className="fa-solid fa-star"></i></span>
+                <span>
+                  <i className="fa-solid fa-star"></i>
+                </span>
+                <span>
+                  <i className="fa-solid fa-star"></i>
+                </span>
+                <span>
+                  <i className="fa-solid fa-star"></i>
+                </span>
+                <span>
+                  <i className="fa-solid fa-star"></i>
+                </span>
+                <span>
+                  <i className="fa-solid fa-star"></i>
+                </span>
               </div>
-              
             </div>
             <div className=" mb-1">
               <DefaultButton title="Shop Now" onClick={handleAddCartProduct} />
@@ -122,10 +129,7 @@ const Menu = () => {
             >
               Add Reviews
             </button>
-            <AddReview
-            open={openDialog}
-            setOpen={setOpenDialog}
-            />
+            <AddReview open={openDialog} setOpen={setOpenDialog} />
           </div>
         )}
         {/* Cancel button */}

@@ -25,7 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function Additem() {
   const handleChange = (event) => {
     setCategories(event.target.value);
   };
@@ -148,6 +148,7 @@ export default function SignIn() {
                 id="categories"
                 value={categories}
                 label="Categories"
+                name="categories"
                 onChange={handleChange}
               >
                 <MenuItem value="Shoes">Shoes</MenuItem>

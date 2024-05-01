@@ -1,0 +1,17 @@
+[
+    {
+      "_id": "1",
+      "title": "Product 1",
+      "price": 10,
+      "qty": 2,
+      "total": 20
+    },
+    {
+      "_id": "2",
+      "title": "Product 2",
+      "price": 15,
+      "qty": 1,
+      "total": 15
+    }
+  ]
+  

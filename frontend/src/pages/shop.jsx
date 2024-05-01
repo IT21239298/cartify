@@ -27,18 +27,14 @@ function Shop() {
   }, [dispatch]); // Include dispatch in dependency array
   console.log("rergregg", productData);
   return (
-        
     <div>
       <div>
-          <ShopHeader/>
+        <ShopHeader />
       </div>
       <div>
-      <AllProduct heading={""} />
+        <AllProduct heading={""} />
       </div>
     </div>
-
-      
-    
   );
 }
 
