@@ -1,12 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import axios from "axios"; // Import Axios
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Reviews = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { filterby } = useParams();
+  const dispatch = useDispatch();
+  const productData = useSelector((state) => state.product.productList);
+  const productDisplay = productData.filter((el) => el._id === filterby)[0];
+  const [reviewsData, setReviewsData] = useState([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [reviewsError, setReviewsError] = useState(null);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8082/api/getreview/${productDisplay._id}`
+        );
+        setReviewsData(response.data);
+        console.log("sacascasc", response.data);
+        setReviewsLoading(false);
+      } catch (error) {
+        setReviewsError(error.message);
+        setReviewsLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [productDisplay._id]);
 
   const settings = {
     dots: true,
@@ -14,50 +41,35 @@ const Reviews = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    afterChange: (index) => setActiveIndex(index)
+    afterChange: (index) => setActiveIndex(index),
   };
 
- 
-  const reviews = [
-    {
-      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, voluptas nostrum quisquam!",
-      author: "Anna Morian",
-      image: "https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(2).webp",
-    },
-    {
-      text: "Neque cupiditate assumenda in maiores repudiandae mollitia adipisci maiores repudiandae mollitia consectetur adipisicing architecto elit sed adipiscing elit.",
-      author: "Teresa May",
-      image: "https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp",
-    },
-    {
-      text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur est laborum neque cupiditate assumenda in maiores.",
-      author: "Kate Allise",
-      image: "https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp",
-    },
-  ];
-
   return (
-    <div className="w-[350px] bg-blue-200 hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col mx-auto rounded-3xl"> 
-      <Slider {...settings}>
-        {reviews.map((review, index) => (
-          <div key={index}>
-             <div className="mb-2 mt-6 flex justify-center">
-              <img
-                src={review.image}
-                className="h-20 w-20 rounded-full shadow-lg dark:shadow-black/30"
-                alt="sample image"
-              />
-            </div>
-            <p className="mx-auto max-w-4xl text-sm italic text-black">
-              {review.text}
-            </p>
-           
-            <p className="text-black">- {review.author}</p>
+    <div className="w-[350px] bg-blue-200 hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col mx-auto rounded-3xl">
+      {reviewsLoading ? (
+        <p>Loading reviews...</p>
+      ) : reviewsError ? (
+        <p>Error loading reviews: {reviewsError}</p>
+      ) : (
+        <Slider {...settings}>
+          {reviewsData.map((review, index) => (
+            <div key={index}>
+              <div className="mb-2 mt-6 flex justify-center">
+                <img
+                  src={review.cus_image}
+                  className="h-20 w-20 rounded-full shadow-lg dark:shadow-black/30"
+                  alt="sample image"
+                />
+              </div>
+              <p className="mx-auto max-w-4xl text-sm italic text-black">
+                {review.comment}
+              </p>
 
-          </div>
-        ))}
-      </Slider>
-     
+              <p className="text-black font-bold italic">- {review.cus_name}</p>
+            </div>
+          ))}
+        </Slider>
+      )}
     </div>
   );
 };
