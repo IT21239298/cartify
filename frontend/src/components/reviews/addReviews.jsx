@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const AddReview = () => {
-    const { filterby } = useParams();
+  const { filterby } = useParams();
   const dispatch = useDispatch();
   const userInfoString = useSelector((state) => state.auth.userInfo);
   const productData = useSelector((state) => state.product.productList);
@@ -47,9 +47,8 @@ const AddReview = () => {
       console.log("first", response.data);
       setInputText("");
 
-     
       const secondFormData = {
-        decision: response.data.decision,
+        decition: response.data.decision,
         comment: response.data.review ? response.data.review.text : "",
         product_id: productDisplay._id,
         cus_id: userInfo._id,
@@ -69,9 +68,7 @@ const AddReview = () => {
 
   return (
     <div>
-      <div>
-       
-      </div>
+      <div></div>
       <div>
         <form onSubmit={handleSubmit}>
           <textarea

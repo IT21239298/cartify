@@ -8,6 +8,7 @@ import { API_BASE_URL } from "../../utils/constants";
 import Reviews from "../../components/reviews/showReviews";
 import DefaultButton from "../../components/home/DefaultButton";
 import "boxicons";
+import Rating from "../../components/reviews/rating";
 
 const Menu = () => {
   const { filterby } = useParams();
@@ -64,9 +65,7 @@ const Menu = () => {
             <h3 className="text-3xl font-sans text-gray-800 text-justify font-medium mb-2 capitalize -mt-2">
               {productDisplay.title}
             </h3>
-            <h3>
-              {productDisplay._id}
-            </h3>
+                 <Rating/>
             <p className="text-slate-500 font-medium text-2xl">
               {productDisplay.categories}
             </p>

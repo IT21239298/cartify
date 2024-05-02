@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import axios from "axios"; // Import Axios
+import axios from "axios"; 
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
