@@ -15,6 +15,7 @@ const UserModel = new Schema(
     lastName: String,
     email: { type: String, unique: true },
     password: String,
+    description: String,
     confirmPassword: String,
     image: String,
     roles: {
