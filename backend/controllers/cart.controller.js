@@ -40,15 +40,12 @@ async function getAllCart(req, res) {
 async function deleteCart(req, res) {
   const { _id } = req.params;
   try {
-    // Ensure that cartId is a valid ObjectId
     if (!mongoose.isValidObjectId(_id)) {
       return res.status(400).json({ error: "Invalid cart ID" });
     }
 
-    // Find and delete the cart by its ObjectId
     await Cart.findByIdAndDelete(_id);
 
-    // Respond with success message
     return res.status(200).json({ message: "Cart deleted successfully" });
   } catch (error) {
     console.error("Error deleting cart:", error);
@@ -101,10 +98,26 @@ async function getCartItemById(req, res) {
   }
 }
 
+
+async function deleteAllCartItems(req, res) {
+  try {
+    // Delete all documents from the Cart collection
+    await Cart.deleteMany({});
+
+    // Respond with success message
+    return res.status(200).json({ message: "All cart items deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting all cart items:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+
 module.exports = {
   create_Cart,
   getAllCart,
   deleteCart,
   updateCart,
   getCartItemById,
+  deleteAllCartItems
 };

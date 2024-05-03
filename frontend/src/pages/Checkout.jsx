@@ -40,8 +40,8 @@ export default function Checkout() {
       addres: formData.get("billing-address"),
       state: formData.get("billing-state"),
       zip: formData.get("billing-zip"),
-      totalQty:totalQty,
-      totalPrice:totalPrice,
+      totalQty: totalQty,
+      totalPrice: totalPrice,
     };
 
     try {
@@ -53,6 +53,9 @@ export default function Checkout() {
       toast.success("Payment successful!");
 
       console.log("Server response:", response.data);
+
+      // Delete all cart items after successful payment
+      await axios.delete("http://localhost:8082/allcart");
 
       // Refresh the page after successful payment
       window.location.reload();
@@ -121,9 +124,8 @@ export default function Checkout() {
             </div>
 
             <form onSubmit={handleSubmit}>
-            <div className="w-full  ml-12 mr-8">
-              <div className="">
-               
+              <div className="w-full  ml-12 mr-8">
+                <div className="">
                   <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
                     <p className="text-xl font-medium">Payment Details</p>
                     <p className="text-gray-400">
@@ -228,51 +230,50 @@ export default function Checkout() {
                       </div>
                     </div>
                   </div>
-               
-              </div>
-              <h2 className="bg-blue-300 rounded-lg text-2xl font-medium font-sans text-primary mt-2 mb-6 mx-auto px-10">
-                Order Summary
-              </h2>
-              <div className="flex w-full py-2 font-sans text-black text-lg text-justify font-bold">
-                <p>Product Name</p>
-                <p className="ml-auto w-32 font-sans text-black text-lg text-justify font-bold">
-                  Quantity
-                </p>
-                <p className="ml-auto w-32 font-sans text-black text-lg text-justify font-bold">
-                  Total
-                </p>
-              </div>
-              {/* Render product quantities, totals, and categories */}
-              {productCartItem.map((item, index) => (
-                <div key={index} className="flex w-full py-2 text-lg">
-                  <p>{item.title}</p>
-                  <p className="ml-auto w-34 font-sans text-black text-lg text-justify">
-                    {item.qty}
+                </div>
+                <h2 className="bg-blue-300 rounded-lg text-2xl font-medium font-sans text-primary mt-2 mb-6 mx-auto px-10">
+                  Order Summary
+                </h2>
+                <div className="flex w-full py-2 font-sans text-black text-lg text-justify font-bold">
+                  <p>Product Name</p>
+                  <p className="ml-auto w-32 font-sans text-black text-lg text-justify font-bold">
+                    Quantity
                   </p>
-                  <p className="ml-auto w-32 font-sans text-black text-lg text-justify">
-                    {item.total}
+                  <p className="ml-auto w-32 font-sans text-black text-lg text-justify font-bold">
+                    Total
                   </p>
                 </div>
-              ))}
-              <div className="border-b"></div>
-              <div className="flex w-full py-2 text-lg border-b">
-                <p className="font-sans text-black text-lg font-bold">
-                  Total Qty :
-                </p>
-                <p className="ml-auto w-32 font-sans text-black text-lg font-bold">
-                  {totalQty}
-                </p>
+                {/* Render product quantities, totals, and categories */}
+                {productCartItem.map((item, index) => (
+                  <div key={index} className="flex w-full py-2 text-lg">
+                    <p>{item.title}</p>
+                    <p className="ml-auto w-34 font-sans text-black text-lg text-justify">
+                      {item.qty}
+                    </p>
+                    <p className="ml-auto w-32 font-sans text-black text-lg text-justify">
+                      {item.total}
+                    </p>
+                  </div>
+                ))}
+                <div className="border-b"></div>
+                <div className="flex w-full py-2 text-lg border-b">
+                  <p className="font-sans text-black text-lg font-bold">
+                    Total Qty :
+                  </p>
+                  <p className="ml-auto w-32 font-sans text-black text-lg font-bold">
+                    {totalQty}
+                  </p>
+                </div>
+                <div className="flex w-full py-2 font-sans text-black text-lg font-bold border-b">
+                  <p>Total Price</p>
+                  <p className="ml-auto w-32 ">
+                    <span className="text-red-500">Rs.</span> {totalPrice}
+                  </p>
+                </div>
+                <div className="mt-10 ml-[230px]">
+                  <DefaultButton title="Purchase Now" />
+                </div>
               </div>
-              <div className="flex w-full py-2 font-sans text-black text-lg font-bold border-b">
-                <p>Total Price</p>
-                <p className="ml-auto w-32 ">
-                  <span className="text-red-500">Rs.</span> {totalPrice}
-                </p>
-              </div>
-              <div className="mt-10 ml-[230px]">
-                <DefaultButton title="Purchase Now"  />
-              </div>
-            </div>
             </form>
           </div>
         ) : (
