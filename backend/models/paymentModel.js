@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
 const paymentSchema = new mongoose.Schema({
- 
   email: {
     type: String,
     required: true,
-  }, 
+  },
   user_id: {
     type: String,
     required: true,
@@ -36,6 +35,14 @@ const paymentSchema = new mongoose.Schema({
     required: true,
   },
   zip: {
+    type: String,
+    required: true,
+  },
+  totalQty: {
+    type: String,
+    required: true,
+  },
+  totalPrice: {
     type: String,
     required: true,
   },
