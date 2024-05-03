@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { TiWarning } from "react-icons/ti";
 import axios from "axios";
 import {
-  Card,
-  CardContent,
-  Typography,
   Button,
   Table,
   TableBody,
@@ -13,13 +11,16 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import Rating from "@mui/material/Rating";
+
+
+const colors = {
+  orange: "#FB021C",
+  grey: "#a9a9a9",
+};
 
 const SellerPage = () => {
   const [sellers, setSellers] = useState([]);
   const [reviewsData, setReviewsData] = useState([]);
-  const [reviewsLoading, setReviewsLoading] = useState(true);
-  const [reviewsError, setReviewsError] = useState(null);
 
   useEffect(() => {
     async function fetchSellers() {
@@ -43,7 +44,7 @@ const SellerPage = () => {
           `http://localhost:8082/api/review`
         );
         setReviewsData(response.data);
-        console.log("revc",response.data)
+        console.log("revc", response.data);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
@@ -53,14 +54,56 @@ const SellerPage = () => {
   }, []);
 
   const getReviewDecisions = (sellerId) => {
-    const sellerReviews = reviewsData.filter((review) => review.seller_id === sellerId);
+    const sellerReviews = reviewsData.filter(
+      (review) => review.seller_id === sellerId
+    );
     const decisions = sellerReviews.map((review) => review.decition);
-    return decisions.length > 0 ? decisions : ["No reviews found"];
+    return decisions;
+  };
+
+  const calculateRating = (decisions) => {
+    const negativeCount = decisions.filter((decision) => decision === "negative").length;
+    const totalDecisions = decisions.length;
+    if (totalDecisions === 0) {
+      return 0;
+    }
+    const percentage = (negativeCount / totalDecisions) * 100;
+    if (percentage <= 20) {
+      return 1;
+    } else if (percentage <= 40) {
+      return 2;
+    } else if (percentage <= 60) {
+      return 3;
+    } else if (percentage <= 80) {
+      return 4;
+    } else {
+      return 5;
+    }
+  };
+  
+
+
+  const renderStars = (rating) => {
+    const starComponents = [];
+    for (let i = 0; i < 5; i++) {
+      starComponents.push(
+        <TiWarning
+          key={i}
+          size={30}
+          color={rating > i ? colors.orange : colors.grey}
+        />
+      );
+    }
+    return starComponents;
   };
 
   const handleWarningClick = () => {
     // Add your warning button click logic here
     console.log("Warning button clicked");
+  };
+
+  const isWarning = (rating) => {
+    return rating >= 4; // Change the condition as needed
   };
 
   return (
@@ -84,21 +127,18 @@ const SellerPage = () => {
                 </TableCell>
                 <TableCell>{seller.email}</TableCell>
                 <TableCell>
-                  <Rating name="read-only" value={seller.rating} readOnly />
-                </TableCell>
-                <TableCell>
-                  {getReviewDecisions(seller._id).map((decision, index) => (
-                    <Typography key={index}>{decision}</Typography>
-                  ))}
+                  <div className="flex">
+                    {renderStars(calculateRating(getReviewDecisions(seller._id)))}
+                  </div>
                 </TableCell>
                 <TableCell>
                   <Button
                     variant="contained"
                     onClick={handleWarningClick}
                     sx={{
-                      bgcolor: "#ff6347",
+                      bgcolor: isWarning(calculateRating(getReviewDecisions(seller._id))) ? colors.orange : "#023BFB",
                       "&:hover": {
-                        bgcolor: "#E72929",
+                        bgcolor: isWarning(calculateRating(getReviewDecisions(seller._id))) ? colors.orange : "#E72929",
                       },
                       color: "white",
                     }}
