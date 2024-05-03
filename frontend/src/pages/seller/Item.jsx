@@ -19,13 +19,23 @@ import { ImagetoBase64 } from "../../utility/ImagetoBase64";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useDispatch, useSelector } from "react-redux";
 import animationData from "../../assets/json/shop.json";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+  const userInfoString = useSelector((state) => state.auth.userInfo);
+
+  const userInfo =
+    typeof userInfoString === "string"
+      ? JSON.parse(userInfoString)
+      : userInfoString || {};
+
   const handleChange = (event) => {
     setCategories(event.target.value);
   };
@@ -40,6 +50,7 @@ export default function SignIn() {
       quantity: event.target.quantity.value,
       categories: categories,
       images: [],
+      seller_id: userInfo._id,
     };
 
     const files = event.target.image.files;
@@ -70,6 +81,8 @@ export default function SignIn() {
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="lg">
         <CssBaseline />
+
+        <div>{userInfo._id}</div>
 
         <Box
           sx={{

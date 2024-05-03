@@ -17,7 +17,7 @@ const Item = require("../models/sellerModel");
 // Controller method for adding a new item
 exports.addItem = async (req, res) => {
   try {
-    const { title, description, categories, price, quantity, images } =
+    const { title, description, categories, price, quantity, images,seller_id } =
       req.body;
 
     // Create a new item
@@ -28,6 +28,7 @@ exports.addItem = async (req, res) => {
       categories,
       price,
       quantity,
+      seller_id
     });
 
     // Save the item to the database

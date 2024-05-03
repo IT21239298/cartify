@@ -58,6 +58,8 @@ export const productSlice = createSlice({
       toast.error("Failed to decrease quantity");
     },
   },
+
+
 });
 
 export const {
@@ -115,3 +117,4 @@ export const decreaseCartItemQuantity =
     }
   };
 export default productSlice.reducer;
+
