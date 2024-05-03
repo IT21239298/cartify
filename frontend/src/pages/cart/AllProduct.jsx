@@ -33,7 +33,7 @@ const AllProduct = ({ heading }) => {
       <h2 className="font-bold text-2xl text-slate-800 mb-4">
         Branded Product {heading}
       </h2>
-      <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+      <div className="">
         {brandList[0] ? (
           brandList.map((el, index) => {
             return (
@@ -46,9 +46,7 @@ const AllProduct = ({ heading }) => {
             );
           })
         ) : (
-          <div className="flex justify-center  text-red-500 items-center h-full">
-           
-          </div>
+          <div className="flex justify-center  text-red-500 items-center h-full"></div>
         )}
       </div>
       <div className="flex flex-wrap justify-center gap-4 my-4">
@@ -65,7 +63,6 @@ const AllProduct = ({ heading }) => {
                   description={el.description}
                   title={el.title}
                   seller_id={el.seller_id}
-                  
                 />
               );
             })

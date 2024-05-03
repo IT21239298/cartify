@@ -2,6 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchAllCartItems } from "../../services/redux/productSlice";
 import { useDispatch } from "react-redux";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  card: {
+    width: 300, // Set a fixed width for the card
+    height: 400, // Set a fixed height for the card
+    cursor: "pointer",
+    backgroundColor: "#EEEEEE",
+    transition: "box-shadow 0.3s ease-in-out",
+    "&:hover": {
+      boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+    },
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+  priceText: {
+    color: "#e53935",
+    fontWeight: "bold",
+  },
+});
 
 const CardFeature = ({
   images,
@@ -14,6 +41,7 @@ const CardFeature = ({
   price,
   seller_id,
 }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,47 +64,75 @@ const CardFeature = ({
   };
 
   return (
-    <div className="w-full min-w-[200px] max-w-[200px] bg-white hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col ">
+    <Card className={classes.card}>
       {price ? (
         <>
-          <Link
-            to={`/menu/${id}`}
-            onClick={() => window.scrollTo({ top: "0", behavior: "smooth" })}
-          >
-            <div className="h-44 w-44 flex flex-col justify-center items-center ">
-              <img src={images[0]} className="h-full" />
-            </div>
-            <h3 className="font-semibold text-slate-600  capitalize text-lg mt-4">
-              {categories}
-            </h3>
-            <p className=" text-slate-500  font-medium">{price}</p>
-            <p className=" font-bold">
-              <span className="text-red-500">$</span>
-              <span>{quantity}</span>
-            </p>
-            <p className=" font-bold">
-              <span className="text-red-500">$</span>
-              <span>{description}</span>
-            </p>
-            <p className=" font-bold">
-              <span className="text-red-500">$</span>
-              <span>{title}</span>
-              <span>{seller_id}</span>
-            </p>
+          <Link to={`/menu/${id}`}>
+            <CardMedia
+              className={classes.media}
+              image={images[0]}
+              // title={title}
+            />
+            <CardContent>
+              <Typography
+                variant="h6"
+                component="h3"
+                gutterBottom
+                sx={{ fontWeight: "bold", fontSize: "30px" }}
+              >
+                {title}
+              </Typography>
+              <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
+                {categories}
+              </Typography>
+
+              <Typography
+                sx={{ fontWeight: "bold", fontSize: "20px" }}
+                variant="body1"
+                color="textSecondary"
+              >
+                Price : $ {price}
+              </Typography>
+              <Typography
+                sx={{ fontWeight: "bold", fontSize: "20px" }}
+                variant="body1"
+                className={classes.priceText}
+              >
+                Available Quanttity : {quantity}
+              </Typography>
+              <Typography
+                sx={{ color: "#222831", fontSize: "20px" }}
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                }}
+                variant="body1"
+                className={classes.priceText}
+              >
+                {description}
+              </Typography>
+              {/* <Typography
+                sx={{ fontWeight: "bold", fontSize: "30px" }}
+                variant="body1"
+                className={classes.priceText}
+              >
+                ${title}
+                {seller_id}
+              </Typography> */}
+            </CardContent>
           </Link>
-          <button
-            className="bg-blue-500 py-1 mt-2 rounded hover:bg-blue-600 w-full"
-            onClick={handleAddCartProduct}
-          >
-            Add Cart
-          </button>
         </>
       ) : (
-        <div className="flex justify-center  text-red-500 items-center h-full">
-          <p>{loading}</p>
-        </div>
+        <CardContent>
+          <Typography variant="h5" color="error" align="center">
+            {loading}
+          </Typography>
+        </CardContent>
       )}
-    </div>
+    </Card>
   );
 };
 

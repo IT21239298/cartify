@@ -99,7 +99,9 @@ function App() {
         pauseOnHover
         theme="dark"
       />
-      <FooterSecondary />
+      <div style={{ marginTop: "10%" }}>
+        <FooterSecondary />
+      </div>
     </BrowserRouter>
   );
 }

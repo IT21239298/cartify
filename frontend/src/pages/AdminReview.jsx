@@ -138,7 +138,6 @@ const SellerPage = () => {
               <TableCell>Email</TableCell>
               <TableCell>Rating</TableCell>
               <TableCell>Review Decisions</TableCell>
-              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
