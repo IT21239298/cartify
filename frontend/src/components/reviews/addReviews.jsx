@@ -54,6 +54,7 @@ const AddReview = () => {
         cus_id: userInfo._id,
         cus_name: userInfo.firstName,
         cus_image: userInfo.image,
+        seller_id:productDisplay.seller_id
       };
 
       const secondResponse = await axios.post(
@@ -81,7 +82,8 @@ const AddReview = () => {
       </div>
       <div>
         <h2>Reviews</h2>
-        <h2>{productDisplay._id}</h2>
+        <h2>{productDisplay._id}</h2> 
+       
         <p>Sentiment: {data.review && data.review.text}</p>
       </div>
       {userInfo.firstName}

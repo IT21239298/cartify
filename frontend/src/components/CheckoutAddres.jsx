@@ -77,6 +77,7 @@ function CheckoutAddress() {
 
       {/* Address form */}
       {showAddressForm && (
+        <form>
         <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
           <p className="text-xl font-medium">Address Details</p>
           <p className="text-gray-400">
@@ -163,7 +164,7 @@ function CheckoutAddress() {
 
           <div className="mt-4 mb-2 flex justify-center ">
             <DefaultButton
-              title="Continue"
+              title="Continue add"
               onClick={() => setShowAddressForm(!showAddressForm)}
             />
           </div>
@@ -176,6 +177,7 @@ function CheckoutAddress() {
             </button>
           </div>
         </div>
+        </form>
       )}
     </div>
   );

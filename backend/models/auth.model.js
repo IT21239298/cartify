@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ROLES = {
-  ADMIN: "Admin",
+  SELLER: "Seller",
   USER: "User",
   SUPERADMIN: "Superadmin",
 };
@@ -20,7 +20,7 @@ const UserModel = new Schema(
     roles: {
       type: [String],
       enum: Object.values(ROLES),
-      default: [ROLES.USER],
+      default: [ROLES.SELLER],
     },
   },
   { timestamps: true }

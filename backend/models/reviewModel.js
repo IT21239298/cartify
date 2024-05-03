@@ -23,7 +23,10 @@ const reviewSchema = new mongoose.Schema({
   cus_image: {
     type: String,
   },
- 
+  seller_id: {
+    type: String,
+    required: true,
+  },
 });
 
 const Review = mongoose.model("Review", reviewSchema);

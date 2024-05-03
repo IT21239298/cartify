@@ -3,8 +3,15 @@ const Review = require("../models/reviewModel");
 
 async function create_Review(req, res) {
   try {
-    const { decition, comment, product_id, cus_id, cus_name, cus_image } =
-      req.body;
+    const {
+      decition,
+      comment,
+      product_id,
+      cus_id,
+      cus_name,
+      cus_image,
+      seller_id,
+    } = req.body;
 
     const newReview = new Review({
       decition,
@@ -13,6 +20,7 @@ async function create_Review(req, res) {
       cus_id,
       cus_name,
       cus_image,
+      seller_id,
     });
 
     await newReview.save();

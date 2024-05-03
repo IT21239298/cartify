@@ -64,6 +64,7 @@ const AllProduct = ({ heading }) => {
                   price={el.price}
                   description={el.description}
                   title={el.title}
+                  seller_id={el.seller_id}
                   
                 />
               );

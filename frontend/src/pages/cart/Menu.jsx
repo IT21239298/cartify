@@ -68,6 +68,7 @@ const Menu = () => {
                  <Rating/>
             <p className="text-slate-500 font-medium text-2xl">
               {productDisplay.categories}
+              
             </p>
             <p className="text-slate-600 font-sans  mx-auto max-w-4xl text-sm italic text-justify mb-4">
               {productDisplay.description}

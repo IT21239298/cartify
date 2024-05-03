@@ -3,7 +3,17 @@ import { Link } from "react-router-dom";
 import { fetchAllCartItems } from "../../services/redux/productSlice";
 import { useDispatch } from "react-redux";
 
-const CardFeature = ({ images, categories, quantity, description, loading, id,title,price }) => {
+const CardFeature = ({
+  images,
+  categories,
+  quantity,
+  description,
+  loading,
+  id,
+  title,
+  price,
+  seller_id,
+}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,10 +28,9 @@ const CardFeature = ({ images, categories, quantity, description, loading, id,ti
         categories: categories,
         quantity: quantity,
         description: description,
-        title:title,
-        price:price
-       
-       
+        title: title,
+        price: price,
+        seller_id: seller_id,
       })
     );
   };
@@ -52,6 +61,7 @@ const CardFeature = ({ images, categories, quantity, description, loading, id,ti
             <p className=" font-bold">
               <span className="text-red-500">$</span>
               <span>{title}</span>
+              <span>{seller_id}</span>
             </p>
           </Link>
           <button
