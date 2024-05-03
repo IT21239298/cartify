@@ -41,6 +41,8 @@ import Newshop from "./pages/Shop/Newshop";
 import Checkout from "./pages/Checkout";
 
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import Analysis from "./pages/analys";
+import AddReview from "./components/reviews/addReviews";
 
 
 
@@ -109,6 +111,9 @@ function App() {
       />
 
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/anaysys" element={<Analysis />} />
+        <Route path="/addreviews" element={<AddReview />} />
+        <Route path="/addreviews/:filterby" element={<AddReview />} />
       </Routes>
       <FooterSecondary />
 

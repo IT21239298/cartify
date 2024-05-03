@@ -70,7 +70,7 @@ function PrimaryHeader() {
                     <Menu as="div" className="relative inline-block text-left">
                         <div>
                             <Menu.Button className="">
-                                <div className="">
+                                <div className="text-3xl cursor-pointer w-9 h-9 rounded-full overflow-hidden drop-shadow-md">
                                     {userInfo.image ? (
                                         <img
                                             src={userInfo.image}
