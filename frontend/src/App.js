@@ -95,7 +95,7 @@ function App() {
         <Route path="menu" element={<Menu />} />
         <Route path="menu/:filterby" element={<Menu />} />
 
-      </Routes>
+     
       <FooterSecondary />
       <ToastContainer
         position="bottom-center"
