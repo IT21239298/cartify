@@ -1,4 +1,5 @@
 const User = require("../models/adminModel");
+const SellUser = require("../models/auth.model");
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -7,4 +8,11 @@ exports.getAllUsers = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+
+
 };
+
+
+
+
+
