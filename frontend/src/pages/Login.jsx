@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../auth/redux/authActions";
 import LoginForm from "../components/form/LoginForm";
 import { AuthContext } from "../context/authContext";
 import LogingHeading from "../components/LoginHeading";
+import loginImage from "../assets/images/login.jpg";
 
 function Login() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -17,7 +17,7 @@ function Login() {
     email: "",
     password: "",
   });
-
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,22 +42,50 @@ function Login() {
     }));
   };
 
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    if (!email.trim()) {
+      errors.email = "Email is required";
+      isValid = false;
+    }
+
+    if (!password.trim()) {
+      errors.password = "Password is required";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
-    dispatch(userLogin(formData));
+    if (validateForm()) {
+      console.log(formData);
+      dispatch(userLogin(formData));
+    }
   };
 
   return (
-    <>
-      <LogingHeading />
-      <LoginForm
-        email={email}
-        password={password}
-        onChange={onChange}
-        handleSubmit={handleSubmit}
-      />
-    </>
+    <div className="flex items-center justify-between h-full">
+      <div className="w-1/2">
+        <img src={loginImage} alt="Login" className="w-full h-full" />
+      </div>
+      <div className="flex items-center justify-center w-1/2">
+        <div className="max-w-md p-8 bg-white rounded-lg shadow-lg">
+          <LogingHeading />
+          <LoginForm
+            email={email}
+            password={password}
+            onChange={onChange}
+            handleSubmit={handleSubmit}
+            errors={errors}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 
