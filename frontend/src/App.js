@@ -36,8 +36,9 @@ import Newshop from "./pages/Shop/Newshop";
 import Checkout from "./pages/Checkout";
 
 import AdminDashboard from "./pages/Admin/AdminDashboard";
-import Analysis from "./pages/analys";
-import AddReview from "./components/reviews/addReviews";
+import ReviewDetails from "./pages/Admin/ReviewDetails";
+import ContactDetails from "./pages/Admin/ContactDetails";
+import AddReview from "./components/reviews/AddReview";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ function App() {
         <Route path="/customer" element={<Customer />} />
         <Route path="/cart" element={<Cart />} />
 
-        <Route path="/review" element={<Review />} />
+        <Route path="/addreview" element={<AddReview />} />
         <Route path="/reviewrating" element={<SellerReview />} />
         <Route path="/adminReview" element={<AdminReview />} />
 
@@ -70,21 +71,19 @@ function App() {
         <Route path="/NewShop" element={<Newshop />} />
 
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/ReviewDetails" element={<ReviewDetails />} />
+        <Route path="/ContactDetails" element={<ContactDetails />} />
 
         <Route path="/item" element={<Item />} />
         <Route path="/sellerDashboard" element={<SellerDashboard />} />
-        {/* <Route path="/star" element={<StarReview />} /> */}
+
         <Route path="/selleritem" element={<Selleritem />} />
         <Route path="/UpdateItem/:id/edit" element={<UpdateItem />} />
 
         <Route path="/shop" element={<Shop />} />
         <Route path="menu" element={<Menu />} />
         <Route path="menu/:filterby" element={<Menu />} />
-
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="/anaysys" element={<Analysis />} />
-        <Route path="/addreviews" element={<AddReview />} />
-        <Route path="/addreviews/:filterby" element={<AddReview />} />
       </Routes>
 
       <ToastContainer

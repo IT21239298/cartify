@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../../auth/redux/authSlice";
 
-
 import { authApi } from "../../auth/services/authService";
 import productSlideReducer from "../../services/redux/productSlice";
 import { checkoutSlice } from "./checkoutSlice";
@@ -18,8 +17,6 @@ const store = configureStore({
     
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-    .concat(authApi.middleware)
-   
+    getDefaultMiddleware().concat(authApi.middleware, apiSlice.middleware),
 });
 export default store;

@@ -1,12 +1,10 @@
 import React from "react";
-import { BiSolidMessageRoundedDetail } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { TbPlus, TbMinus } from "react-icons/tb";
 import {
   deleteCartItem,
   decreaseCartItemQuantity,
-  increaseQty,
-  decreaseQty,
+
 } from "../../services/redux/productSlice";
 import { useDispatch } from "react-redux";
 
@@ -15,7 +13,7 @@ const CartProduct = ({ id, images, categories, qty, title, price, total }) => {
 
   return (
     <div
-      className="bg-slate-200 p-2 flex flex-col items-center gap-4 rounded-lg border border-slate-300"
+      className="bg-blue-100 p-2 flex flex-col items-center gap-4 rounded-lg border hover:shadow-lg drop-shadow-lg border-slate-300 "
       style={{ width: 500, height: 600 }}
     >
       <div className="flex justify-end w-500">
@@ -32,8 +30,8 @@ const CartProduct = ({ id, images, categories, qty, title, price, total }) => {
           {title}
         </h3>
         <div className="flex justify-center">
-          <div className="p-3 bg-white rounded overflow-hidden w-64 h-52 justify-center">
-            <img src={images[0]} className="h-28 w-40 object-cover " />
+          <div className="p-3 bg-blue-100 rounded overflow-hidden w-64 h-52 justify-center">
+            <img src={images[0]} className="h-52 w-64 object-cover rounded" />
           </div>
         </div>
         <p className="text-slate-500 font-medium text-2xl mt-2 ">
