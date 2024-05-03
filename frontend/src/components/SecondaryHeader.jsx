@@ -22,7 +22,7 @@ function SecondaryHeader() {
                 alt="sofa"
                 className="w-5 h-5 object-contain"
               />
-              <span className="ml-6 text-gray-600 text-sm">Sofa</span>
+              <span className="ml-6 text-gray-600 text-sm">Shoes</span>
             </a>
             <a
               href="#"
@@ -33,7 +33,7 @@ function SecondaryHeader() {
                 alt="terrace"
                 className="w-5 h-5 object-contain"
               />
-              <span className="ml-6 text-gray-600 text-sm">Terarce</span>
+              <span className="ml-6 text-gray-600 text-sm">Jewellery & watches</span>
             </a>
             <a
               href="#"
@@ -44,7 +44,7 @@ function SecondaryHeader() {
                 alt="bed"
                 className="w-5 h-5 object-contain"
               />
-              <span className="ml-6 text-gray-600 text-sm">Bed</span>
+              <span className="ml-6 text-gray-600 text-sm">Accessories</span>
             </a>
             <a
               href="#"
@@ -55,7 +55,7 @@ function SecondaryHeader() {
                 alt="office"
                 className="w-5 h-5 object-contain"
               />
-              <span className="ml-6 text-gray-600 text-sm">office</span>
+              <span className="ml-6 text-gray-600 text-sm">Phone Accessories</span>
             </a>
             <a
               href="#"
@@ -66,7 +66,7 @@ function SecondaryHeader() {
                 alt="outdoor"
                 className="w-5 h-5 object-contain"
               />
-              <span className="ml-6 text-gray-600 text-sm">Outdoor</span>
+              <span className="ml-6 text-gray-600 text-sm">Luggage and Bags</span>
             </a>
             <a
               href="#"
@@ -77,7 +77,7 @@ function SecondaryHeader() {
                 alt="Mattress"
                 className="w-5 h-5 object-contain"
               />
-              <span className="ml-6 text-gray-600 text-sm">Mattress</span>
+              <span className="ml-6 text-gray-600 text-sm">Consumer Electronics</span>
             </a>
           </div>
         </div>

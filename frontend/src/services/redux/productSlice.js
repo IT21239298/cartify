@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 const initialState = {
   productList: [],
   cartItem: [],
+  category: '',
 };
 
 export const productSlice = createSlice({
@@ -57,6 +58,9 @@ export const productSlice = createSlice({
     decreaseQtyFailure: (state, action) => {
       toast.error("Failed to decrease quantity");
     },
+    setCategory: (state, action) => {
+      state.category = action.payload
+    }
   },
 });
 
@@ -68,6 +72,7 @@ export const {
   decreaseQtyFailure,
   deleteCartItemFailure,
   deleteCartItemSuccess,
+  setCategory,
 } = productSlice.actions;
 
 export const deleteCartItem = (id) => async (dispatch) => {

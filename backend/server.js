@@ -39,6 +39,7 @@ app.use(require("./routes/cart.router.js"));
 
 app.use("/api/admin", require("./routes/adminRoute.js"));
 
+app.use("/api/item", require("./routes/itemsRoute.js"))
 
 con
   .then((db) => {
