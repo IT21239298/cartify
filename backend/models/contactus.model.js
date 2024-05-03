@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 const Contactus_model = new Schema({
     name:{type:String},
     email:{type:String},
-    message:{type:String}
+    message:{type:String},
+    date:{type:String},
 });
 
 const Contactus = mongoose.model("contactus",Contactus_model);

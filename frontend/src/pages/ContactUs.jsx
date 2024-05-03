@@ -31,6 +31,10 @@ export default function ContactUs({ ContactData }) {
     if (!data) return {};
 
     try {
+      // Populate date field with current date
+      const currentDate = new Date().toLocaleDateString();
+      data.date = currentDate;
+
       await addContact(data).unwrap(); // Assuming unwrap() returns the response data
       setShowSuccessPopup(true); // Show success popup on successful form submission
       reset(); // Reset the form fields after submission
@@ -120,6 +124,9 @@ export default function ContactUs({ ContactData }) {
                     {errors.message && errors.message.type !== "required" && "Message must be less than 250 characters"}
                   </p>
                 </div>
+
+                {/* Hidden date field */}
+                <input type="hidden" id="date" name="date" />
 
                 <div>
                   <button

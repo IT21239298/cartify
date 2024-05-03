@@ -41,6 +41,7 @@ import AddReview from "./components/reviews/addReviews";
 
 
 
+
 function App() {
   const dispatch = useDispatch();
 
@@ -67,9 +68,10 @@ function App() {
         <Route path="/reviewrating" element={<SellerReview />} />
         <Route path="/adminReview" element={<AdminReview />} />
 
-        <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="/Admincontact" element={<Admincontact />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/admin-contact" element={<Admincontact />} />
         <Route path="/NewShop" element={<Newshop />} />
+     
 
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
 
