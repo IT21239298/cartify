@@ -96,7 +96,7 @@ function SecondaryHeader() {
             </button>
             <button className=" px-20 py-8 font-bold text-justify text-blue-950 w-30 h-10 hover:bg-blue-950 hover:bg-cover hover:text-white transition">
               <a
-                href="/ContactUs"
+                href="/contact-us"
                 className="font-bold text-blue-950 hover:text-white transition"
               >
                 Contact us

@@ -21,7 +21,17 @@ export const apiSlice = createApi({
       query: () => "/api/contactus",
       //providesTags: ["contactus"],
     }),
+
+    deleteContact: builder.mutation({
+   
+      query: (contactInfo) => ({
+        url: "/api/contactus",
+        body: contactInfo,
+        method: "DELETE"
+      })
+    }),
+
  }),
 });
 
-export const {useAddContactMutation, useGet_ContactusQuery} = apiSlice;
+export const {useAddContactMutation, useGet_ContactusQuery,useDeleteContactMutation} = apiSlice;
