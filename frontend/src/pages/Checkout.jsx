@@ -3,13 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import CartProduct from "../pages/cart/cartproduct";
 import emptyCartImage from "../assets/empty.gif";
 import { Link } from "react-router-dom";
-import Carousel from "react-material-ui-carousel"; // Import Carousel
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Carousel from "react-material-ui-carousel";
 import { fetchAllCartItems } from "../services/redux/productSlice";
 import DefaultButton from "../components/home/DefaultButton";
-import CheckoutForm from "../components/CheckoutForm";
-import "boxicons";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 export default function Checkout() {
   const dispatch = useDispatch();
@@ -19,7 +17,6 @@ export default function Checkout() {
     dispatch(fetchAllCartItems());
   }, [dispatch]);
 
-  console.log(" cart item rergdwdqwdwqdwdwdwdwregg", productCartItem);
   const totalQty = productCartItem.reduce(
     (acc, curr) => acc + parseInt(curr.qty),
     0
@@ -28,6 +25,43 @@ export default function Checkout() {
     (acc, curr) => acc + parseInt(curr.total),
     0
   );
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+
+    const data = {
+      email: formData.get("email"),
+      holder: formData.get("card-holder"),
+      card: formData.get("card-no"),
+      expire: formData.get("credit-expiry"),
+      cvc: formData.get("credit-cvc"),
+      addres: formData.get("billing-address"),
+      state: formData.get("billing-state"),
+      zip: formData.get("billing-zip"),
+      totalQty:totalQty,
+      totalPrice:totalPrice,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8082/api/createpayment",
+        data
+      );
+
+      toast.success("Payment successful!");
+
+      console.log("Server response:", response.data);
+
+      // Refresh the page after successful payment
+      window.location.reload();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+
+      toast.error("Error processing payment. Please try again.");
+    }
+  };
 
   return (
     <div className="p-8">
@@ -86,9 +120,115 @@ export default function Checkout() {
               </div>
             </div>
 
-            <div className="w-full  ml-56 mr-11">
+            <form onSubmit={handleSubmit}>
+            <div className="w-full  ml-12 mr-8">
               <div className="">
-                <CheckoutForm />
+               
+                  <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+                    <p className="text-xl font-medium">Payment Details</p>
+                    <p className="text-gray-400">
+                      Complete your order by providing your payment details.
+                    </p>
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="mt-4 mb-2 block text-sm font-medium"
+                      >
+                        Email
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          id="email"
+                          name="email"
+                          className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                          placeholder="your.email@gmail.com"
+                        />
+                      </div>
+                      <label
+                        htmlFor="card-holder"
+                        className="mt-4 mb-2 block text-sm font-medium"
+                      >
+                        Card Holder
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          // {...register("holder")}
+                          id="card-holder"
+                          name="card-holder"
+                          className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                          placeholder="Your full name here"
+                        />
+                      </div>
+                      <label
+                        htmlFor="card-no"
+                        className="mt-4 mb-2 block text-sm font-medium"
+                      >
+                        Card Details
+                      </label>
+                      <div className="flex">
+                        <div className="relative w-7/12 flex-shrink-0">
+                          <input
+                            // {...register("card")}
+                            type="text"
+                            id="card-no"
+                            name="card-no"
+                            className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                            placeholder="xxxx-xxxx-xxxx-xxxx"
+                          />
+                        </div>
+                        <input
+                          type="text"
+                          // {...register("expire")}
+                          name="credit-expiry"
+                          className="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                          placeholder="MM/YY"
+                        />
+                        <input
+                          type="text"
+                          name="credit-cvc"
+                          // {...register("cvc")}
+                          className="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                          placeholder="CVC"
+                        />
+                      </div>
+                      <label
+                        htmlFor="billing-address"
+                        className="mt-4 mb-2 block text-sm font-medium"
+                      >
+                        Address
+                      </label>
+                      <div className="flex flex-col sm:flex-row">
+                        <div className="relative flex-shrink-0 sm:w-7/12">
+                          <input
+                            type="text"
+                            // {...register("addres")}
+                            id="billing-address"
+                            name="billing-address"
+                            className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                            placeholder="Street Address"
+                          />
+                        </div>
+                        <select
+                          type="text"
+                          // {...register("state")}
+                          name="billing-state"
+                          className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                        >
+                          <option value="State">State</option>
+                        </select>
+                        <input
+                          type="text"
+                          // {...register("zip")}
+                          name="billing-zip"
+                          className="flex-shrink-0 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                          placeholder="ZIP"
+                        />
+                      </div>
+                    </div>
+                  </div>
+               
               </div>
               <h2 className="bg-blue-300 rounded-lg text-2xl font-medium font-sans text-primary mt-2 mb-6 mx-auto px-10">
                 Order Summary
@@ -129,10 +269,11 @@ export default function Checkout() {
                   <span className="text-red-500">Rs.</span> {totalPrice}
                 </p>
               </div>
-              <div className="mt-10 ml-32">
-                <DefaultButton title="Purchase Now" />
+              <div className="mt-10 ml-[230px]">
+                <DefaultButton title="Purchase Now"  />
               </div>
             </div>
+            </form>
           </div>
         ) : (
           <>

@@ -7,7 +7,7 @@ const paymentSchema = new mongoose.Schema({
   },
   user_id: {
     type: String,
-    required: true,
+    
   },
 
   holder: {
@@ -15,15 +15,15 @@ const paymentSchema = new mongoose.Schema({
     required: true,
   },
   card: {
-    type: Number,
+    type: String,
     required: true,
   },
   expire: {
-    type: Number,
+    type: String,
     required: true,
   },
   cvc: {
-    type: Number,
+    type: String,
     required: true,
   },
   addres: {
@@ -40,11 +40,11 @@ const paymentSchema = new mongoose.Schema({
   },
   totalQty: {
     type: String,
-    required: true,
+    // required: true,
   },
   totalPrice: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 
