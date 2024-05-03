@@ -65,11 +65,7 @@ function Rating() {
         {stars.map((_, index) => {
           return (
             <div key={index}>
-              <FaStar
-                size={20}
-                color={getStarColor(index)}
-                className="mr-1"
-              />
+              <FaStar size={20} color={getStarColor(index)} className="mr-1" />
             </div>
           );
         })}
