@@ -143,6 +143,8 @@ export default function Checkout() {
                           type="text"
                           id="email"
                           name="email"
+                          required
+                          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                           className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="your.email@gmail.com"
                         />
@@ -156,9 +158,9 @@ export default function Checkout() {
                       <div className="relative">
                         <input
                           type="text"
-                          // {...register("holder")}
                           id="card-holder"
                           name="card-holder"
+                          required
                           className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="Your full name here"
                         />
@@ -172,25 +174,28 @@ export default function Checkout() {
                       <div className="flex">
                         <div className="relative w-7/12 flex-shrink-0">
                           <input
-                            // {...register("card")}
                             type="text"
                             id="card-no"
                             name="card-no"
+                            required
+                            pattern="\d{4}-\d{4}-\d{4}-\d{4}"
                             className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                             placeholder="xxxx-xxxx-xxxx-xxxx"
                           />
                         </div>
                         <input
                           type="text"
-                          // {...register("expire")}
                           name="credit-expiry"
+                          required
+                          pattern="\d{2}/\d{2}"
                           className="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="MM/YY"
                         />
                         <input
                           type="text"
                           name="credit-cvc"
-                          // {...register("cvc")}
+                          required
+                          pattern="\d{3}"
                           className="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="CVC"
                         />
@@ -205,25 +210,28 @@ export default function Checkout() {
                         <div className="relative flex-shrink-0 sm:w-7/12">
                           <input
                             type="text"
-                            // {...register("addres")}
                             id="billing-address"
                             name="billing-address"
+                            required
                             className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                             placeholder="Street Address"
                           />
                         </div>
                         <select
-                          type="text"
-                          // {...register("state")}
                           name="billing-state"
+                          required
                           className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                         >
                           <option value="State">State</option>
+                          <option value="State">Western Province</option>
+                          <option value="State">Central Province</option>
+                          <option value="State">Southern Province</option>
                         </select>
                         <input
-                          type="text"
-                          // {...register("zip")}
+                          type="number"
                           name="billing-zip"
+                          required
+                          pattern="\d{4}"
                           className="flex-shrink-0 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="ZIP"
                         />
