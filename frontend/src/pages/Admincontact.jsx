@@ -8,7 +8,6 @@ import {
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-
 function Admincontact() {
   // Fetch contact data
   const { data: contacts, error, isLoading, refetch } = useGet_ContactusQuery();
@@ -21,6 +20,9 @@ function Admincontact() {
     message: "",
     date: "" // Add date field
   });
+
+  // State for popup visibility
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleAddContact = async () => {
     try {
@@ -44,6 +46,8 @@ function Admincontact() {
       await deleteContact({ id: contactId }).unwrap();
       // Refetch contact data after deletion
       refetch();
+      // Show popup after successful deletion
+      setShowPopup(true);
     } catch (error) {
       console.error("Error deleting contact:", error);
     }
@@ -90,22 +94,28 @@ function Admincontact() {
 
   return (
     <div className="container mx-auto flex flex-col items-start">
-    <div className="flex justify-between w-full items-center mb-4"> {/* Flex container for button and heading */}
-      <h1 className="text-3xl font-bold">Contacts</h1>
-      <div>
-      <button onClick={generatePDF} className="bg-primary border border-primary text-white px-8 py-3 font-medium 
+      <div className="flex justify-between w-full items-center mb-4"> {/* Flex container for button and heading */}
+        <h1 className="text-3xl font-bold">Contacts</h1>
+        <div>
+          <button onClick={generatePDF} className="bg-primary border border-primary text-white px-8 py-3 font-medium 
               rounded-md hover:bg-blue-800 hover:text-white cursor-grab mt-5">
-        Generate Report
-      </button>
+            Generate Report
+          </button>
+        </div>
+      </div>
+      {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center">
+          <div className="bg-white p-10 rounded-lg shadow-lg">
+            <p className=" text-rose-950 text-lg font-bold">Record deleted successfully!</p>
+            
+            <button  className="mt-4 bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-800" onClick={() => setShowPopup(false)   }>Done</button>
+          </div>
+        </div>
+      )}
+      <div className="w-full overflow-x-auto">
+        <Contactustable contacts={contacts ?? []} onDelete={handleDeleteContact} />
       </div>
     </div>
-    <div className="w-full overflow-x-auto">
-      <Contactustable contacts={contacts ?? []} onDelete={handleDeleteContact} />
-    </div>
-  </div>
-  
-
-  
   );
 }
 
