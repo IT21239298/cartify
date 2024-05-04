@@ -155,7 +155,7 @@ const AdminTable = ({ admins, handleUpdate, handleDelete }) => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                  className="px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-700"
                 >
                   Submit
                 </button>
