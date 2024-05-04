@@ -1,7 +1,7 @@
-const model= require("../models/contactus.model");
-
+const model = require("../models/contactus.model");
 
 //add contact details
+
 async function create_Contactus(req,res){
   if (!req.body) return res.status(400).json("Post HTTP Data not Provided");
   let { name, email, message,date } = req.body;
@@ -20,12 +20,14 @@ async function create_Contactus(req,res){
       .status(400)
       .json({ message: `Error while creating product ${err} `});
   }
+
 }
 
 async function get_Contactus(req, res) {
-    let data = await model.Contactus.find({});
-    return res.json(data);
-  }
+  let data = await model.Contactus.find({});
+  return res.json(data);
+}
+
 
 
   async function delete_Contactus(req, res) {

@@ -30,8 +30,27 @@ const AllProduct = ({ heading }) => {
   const loadingArrayFeature = new Array(10).fill(null);
   return (
     <div className="my-5">
-      
-    
+
+      <h2 className="font-bold text-2xl text-slate-800 mb-4">
+        Branded Product {heading}
+      </h2>
+      <div className="">
+        {brandList[0] ? (
+          brandList.map((el, index) => {
+            return (
+              <FilterProduct
+                brand={el}
+                onClick={() => handleFiterBrand(el)}
+                isActive={el.toLowerCase() === filterby.toLowerCase()}
+                key={index}
+              />
+            );
+          })
+        ) : (
+          <div className="flex justify-center  text-red-500 items-center h-full"></div>
+        )}
+      </div>
+
       <div className="flex flex-wrap justify-center gap-4 my-4">
         {dataFilter[0]
           ? dataFilter.map((el) => {
@@ -46,7 +65,6 @@ const AllProduct = ({ heading }) => {
                   description={el.description}
                   title={el.title}
                   seller_id={el.seller_id}
-                  
                 />
               );
             })

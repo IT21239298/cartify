@@ -10,8 +10,11 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Modal,
+  Box,
+  TextField,
 } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 
 const colors = {
   orange: "#FB021C",
@@ -21,6 +24,10 @@ const colors = {
 const SellerPage = () => {
   const [sellers, setSellers] = useState([]);
   const [reviewsData, setReviewsData] = useState([]);
+  const [selectedSeller, setSelectedSeller] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchSellers() {
@@ -40,11 +47,8 @@ const SellerPage = () => {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const response = await axios.get(
-          `http://localhost:8082/api/review`
-        );
+        const response = await axios.get(`http://localhost:8082/api/review`);
         setReviewsData(response.data);
-        console.log("revc", response.data);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
@@ -62,7 +66,9 @@ const SellerPage = () => {
   };
 
   const calculateRating = (decisions) => {
-    const negativeCount = decisions.filter((decision) => decision === "negative").length;
+    const negativeCount = decisions.filter(
+      (decision) => decision === "negative"
+    ).length;
     const totalDecisions = decisions.length;
     if (totalDecisions === 0) {
       return 0;
@@ -80,8 +86,6 @@ const SellerPage = () => {
       return 5;
     }
   };
-  
-
 
   const renderStars = (rating) => {
     const starComponents = [];
@@ -97,13 +101,31 @@ const SellerPage = () => {
     return starComponents;
   };
 
-  const handleWarningClick = () => {
-    // Add your warning button click logic here
-    console.log("Warning button clicked");
+  const handleWarningClick = (seller) => {
+    setSelectedSeller(seller);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const isWarning = (rating) => {
-    return rating >= 4; // Change the condition as needed
+    return rating >= 4;
+  };
+
+  const sendEmail = async () => {
+    try {
+      await axios.post("http://localhost:8082/api/admin/sendEmail", {
+        email: selectedSeller.email,
+        description: description,
+      });
+
+      setOpen(false);
+      navigate("/adminReview");
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   };
 
   return (
@@ -116,7 +138,6 @@ const SellerPage = () => {
               <TableCell>Email</TableCell>
               <TableCell>Rating</TableCell>
               <TableCell>Review Decisions</TableCell>
-              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -128,17 +149,27 @@ const SellerPage = () => {
                 <TableCell>{seller.email}</TableCell>
                 <TableCell>
                   <div className="flex">
-                    {renderStars(calculateRating(getReviewDecisions(seller._id)))}
+                    {renderStars(
+                      calculateRating(getReviewDecisions(seller._id))
+                    )}
                   </div>
                 </TableCell>
                 <TableCell>
                   <Button
                     variant="contained"
-                    onClick={handleWarningClick}
+                    onClick={() => handleWarningClick(seller)}
                     sx={{
-                      bgcolor: isWarning(calculateRating(getReviewDecisions(seller._id))) ? colors.orange : "#023BFB",
+                      bgcolor: isWarning(
+                        calculateRating(getReviewDecisions(seller._id))
+                      )
+                        ? colors.orange
+                        : "#023BFB",
                       "&:hover": {
-                        bgcolor: isWarning(calculateRating(getReviewDecisions(seller._id))) ? colors.orange : "#E72929",
+                        bgcolor: isWarning(
+                          calculateRating(getReviewDecisions(seller._id))
+                        )
+                          ? colors.orange
+                          : "#E72929",
                       },
                       color: "white",
                     }}
@@ -151,6 +182,44 @@ const SellerPage = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Modal open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <TextField
+            id="outlined-basic"
+            label="Seller Email"
+            variant="outlined"
+            defaultValue={selectedSeller ? selectedSeller.email : ""}
+            fullWidth
+            disabled
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            id="outlined-multiline-static"
+            label="Description"
+            multiline
+            rows={4}
+            variant="outlined"
+            fullWidth
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <Button variant="contained" onClick={sendEmail}>
+            Send
+          </Button>
+        </Box>
+      </Modal>
     </div>
   );
 };
