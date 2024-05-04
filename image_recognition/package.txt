@@ -1,0 +1,3 @@
+ultralytics
+Flask
+flask_cors
