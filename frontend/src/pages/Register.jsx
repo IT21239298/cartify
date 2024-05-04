@@ -102,9 +102,9 @@ function Register() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:justify-center">
+    <div className="flex flex-col md:flex-row md:justify-center ml-[100px]">
       <div className="p-3 md:p-4 md:mr-4 mt-[90px]">
-        <div className="flex flex-col w-full max-w-sm p-4 m-auto bg-white rounded-lg shadow-md">
+        <div className="flex flex-col w-full max-w-md p-4 m-auto bg-white rounded-lg shadow-md">
           <h2 className="mb-4 text-2xl font-bold text-center text-gray-800">
             Create An Account
           </h2>
@@ -122,7 +122,7 @@ function Register() {
             >
               Upload
             </label>
-            <div className="w-20 h-20 mx-auto overflow-hidden rounded-full shadow-md">
+            <div className="mx-auto overflow-hidden rounded-full shadow-md w-28 h-28">
               <img
                 src={data.image ? data.image : loginSignupImage}
                 className="object-cover w-full h-full"
@@ -258,7 +258,7 @@ function Register() {
         <img
           src={registerImage}
           alt="Register"
-          className="w-full h-[700px] mt-[100px]"
+          className="w-[500px] h-[700px] mt-[100px] ml-[200px]"
         />
       </div>
     </div>
