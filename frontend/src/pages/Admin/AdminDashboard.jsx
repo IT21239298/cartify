@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../../utils/constants";
 import AdminTable from "../../components/admin/AdminTable";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 const AdminDashboard = () => {
   const [admins, setAdmins] = useState([]);
@@ -43,10 +45,29 @@ const AdminDashboard = () => {
     }
   };
 
+  const generateReport = () => {
+    const doc = new jsPDF();
+    doc.autoTable({
+      head: [["FirstName", "LastName", "Email"]],
+      body: admins.map(({ firstName, lastName, email }) => [
+        firstName,
+        lastName,
+        email,
+      ]),
+    });
+    doc.save("admin_report.pdf");
+  };
+
   return (
     <div className="flex">
       <div className="container mx-auto">
         <h1 className="mb-4 text-2xl font-bold">Admin Dashboard</h1>
+        <button
+          onClick={generateReport}
+          className="float-right px-4 py-2 mt-2 mb-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+        >
+          Download Report
+        </button>
         <AdminTable
           admins={admins}
           handleUpdate={handleUpdate}
