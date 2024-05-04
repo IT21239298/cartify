@@ -1,6 +1,6 @@
 import React from "react";
 
-const Contactustable = ({ contacts }) => {
+const Contactustable = ({ contacts, onDelete }) => {
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -31,6 +31,12 @@ const Contactustable = ({ contacts }) => {
                     scope="col"
                     className="px-6 py-3 text-center text-[17px] font-sans font-semibold text-blue-950 uppercase tracking-wider"
                   >
+                    Date
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-center text-[17px] font-sans font-semibold text-blue-950 uppercase tracking-wider"
+                  >
                     Action
                   </th>
                 </tr>
@@ -53,12 +59,25 @@ const Contactustable = ({ contacts }) => {
                         {contact.message ?? ""}
                       </div>
                     </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {contact.date ?? ""}
+                      </div>
+                    </td>
 
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <button className="text-indigo-600 hover:text-indigo-900">
+                      <button
+                        className="text-indigo-600 hover:text-indigo-900"
+                        onClick={() => {
+                          // Add functionality to send email
+                        }}
+                      >
                         Send Email
                       </button>
-                      <button className="text-red-600 hover:text-red-900 ml-2">
+                      <button
+                        className="text-red-600 hover:text-red-900 ml-2"
+                        onClick={() => onDelete(contact._id)} 
+                      >
                         Delete
                       </button>
                     </td>

@@ -26,8 +26,10 @@ function Login() {
       if (userInfo.roles.includes("User")) {
         navigate("/");
         window.location.reload();
-      } else if (userInfo.roles.includes("Superadmin")) {
-        navigate("/sellerDashboard");
+
+      } else if (userInfo.roles.includes("Seller")) {
+        navigate("/selleritem");
+
         window.location.reload();
       }
     }

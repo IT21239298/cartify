@@ -1,11 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import SecondaryButton from './SecondaryButton';
 
-function ImageScanner() {
+import { useDispatch } from 'react-redux'; 
+
+import { useNavigate } from 'react-router-dom';
+import { setCategory } from '../../services/redux/productSlice';
+
+function ImageScanner() {   
 
     const [image, setImage] = useState(null)
     const [loading, setLoading] = useState(false)
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        dispatch(setCategory(''))
+    }, [])
+
 
     const handleDrop = (e) => {
         e.preventDefault();
@@ -17,11 +30,17 @@ function ImageScanner() {
             };
             reader.readAsDataURL(file);
         }
+
+        
+
+        dispatch(setCategory('Luuggage & Bags'))
+
     };
 
     const handleDragOver = (e) => {
         e.preventDefault();
     };
+
 
 
     return (
@@ -41,7 +60,9 @@ function ImageScanner() {
                 <div className='text-lg font-sans text-primary font-semibold mr-10 mb-10'>
                     <h1 className='text-3xl '>Transform your shopping experience</h1> <br /> <span className='font-sans'>Simply scan and drag & drop your image to discover relevant categories <br /> tailored just for you!</span>
                 </div>
-                <SecondaryButton onClick={() =>  {}} title={'Scan Now'} />
+                <SecondaryButton onClick={() =>  {
+                    navigate("/shop")
+                }} title={'Scan Now'} />
             </div>
 
         </div>

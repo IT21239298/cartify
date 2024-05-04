@@ -11,5 +11,6 @@ cartRoute
 cartRoute.delete("/cart/:_id", controller.deleteCart);
 cartRoute.put("/cart/:_id", controller.updateCart);
 cartRoute.get("/cart/:_id", controller.getCartItemById);
+cartRoute.delete("/allcart", controller.deleteAllCartItems);
 
 module.exports = cartRoute;

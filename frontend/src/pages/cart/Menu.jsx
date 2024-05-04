@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCartItems } from "../../services/redux/productSlice";
 import axios from "axios";
-import { toast } from "react-hot-toast"
+import { toast } from "react-hot-toast";
 import { API_BASE_URL } from "../../utils/constants";
 import Reviews from "../../components/reviews/showReviews";
 import DefaultButton from "../../components/home/DefaultButton";
-import AddReview from "../../components/reviews/AddReview";
 import "boxicons";
+import Rating from "../../components/reviews/rating";
 
 const Menu = () => {
   const { filterby } = useParams();
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.product.productList);
   const [showReviews, setShowReviews] = useState(false); // State to control the visibility of reviews
-
-  const [openDialog, setOpenDialog] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
-
-
-  const handleOpen = () => {
-    setOpenDialog(true);
-    setIsEditOpen(true);
-  };
+  const [selectedProductDetails, setSelectedProductDetails] = useState(null); // State to store selected product details
 
   useEffect(() => {
     dispatch(fetchAllCartItems());
@@ -54,23 +46,18 @@ const Menu = () => {
     setShowReviews(false);
   };
 
-
+  const handleAddReviews = () => {
+    // Set the selected product details
+   
+  };
   return (
     <div className="p-8">
-       <Link to={"/shop"}>
-        <div className="flex cursor-pointer">
-          <div className="ml-32">
-            <box-icon name="undo" size="40px"></box-icon>
-          </div>
-          <div className="mt-2 text-gray-400">Back</div>
-        </div>
-      </Link>
-      <div className=" min-w-[700px] max-w-[200px] bg-blue-100 hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col mx-auto rounded-3xl">
-        <div className=" max-w-4xl m-auto md:flex">
+      <div className="w-full min-w-[600px] max-w-[200px] bg-white hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col mx-auto rounded-3xl">
+        <div className=" max-w-4xl m-auto md:flex bg-white">
           <div className="max-w-sm overflow-hidden w-full p-5 -mt-4 ">
             <img
               src={productDisplay.images[0]}
-              className="hover:scale-105 transition-all h-[200px] w-[450px] mr-5 rounded-r"
+              className="hover:scale-105 transition-all h-full"
               alt=""
             />
           </div>
@@ -78,27 +65,19 @@ const Menu = () => {
             <h3 className="text-3xl font-sans text-gray-800 text-justify font-medium mb-2 capitalize -mt-2">
               {productDisplay.title}
             </h3>
+                 <Rating/>
             <p className="text-slate-500 font-medium text-2xl">
               {productDisplay.categories}
+              
             </p>
-            <p className="text-slate-600 font-sans  mx-auto max-w-4xl text-sm italic text-justify mb-2">
+            <p className="text-slate-600 font-sans  mx-auto max-w-4xl text-sm italic text-justify mb-4">
               {productDisplay.description}
             </p>
-            <p className="font-bold md:text-2xl ml-6">
+            <p className="font-bold md:text-2xl ml-16">
               <span className="text-red-500">Rs.</span>
               <span>{productDisplay.price}</span>
             </p>
-            <div className="flex items-center ml-4 mt-1 mb-1">
-              <div className="flex gap-1 text-lg text-yellow-500">
-                <span><i className="fa-solid fa-star"></i></span>
-                <span><i className="fa-solid fa-star"></i></span>
-                <span><i className="fa-solid fa-star"></i></span>
-                <span><i className="fa-solid fa-star"></i></span>
-                <span><i className="fa-solid fa-star"></i></span>
-              </div>
-              
-            </div>
-            <div className=" mb-1">
+            <div className="flex gap-3 ml-12">
               <DefaultButton title="Shop Now" onClick={handleAddCartProduct} />
             </div>
           </div>
@@ -115,24 +94,22 @@ const Menu = () => {
             >
               Show Reviews
             </button>
-            <button
-              className="bg-gray-700 border-primary text-white px-6 py-3 font-medium 
-              rounded-md hover:bg-gray-600 hover:text-white cursor-grab mr-20  "
-              onClick={handleOpen}
-            >
-              Add Reviews
-            </button>
-            <AddReview
-            open={openDialog}
-            setOpen={setOpenDialog}
-            />
+            <Link
+          to={`/addreviews/${productDisplay._id}`}
+          className="bg-gray-700 border-primary text-white px-6 py-3 font-medium 
+          rounded-md hover:bg-gray-600 hover:text-white cursor-grab"
+          onClick={handleAddReviews}
+        >
+          Add Reviews
+        </Link>
+
           </div>
         )}
         {/* Cancel button */}
         {showReviews && (
           <div className="flex justify-center mt-4">
             <button
-              className="bg-blue-900 py-1 rounded-full hover:bg-blue-800 w-8 h-8 flex items-center justify-center"
+              className="bg-red-500 py-1 rounded-full hover:bg-red-600 w-8 h-8 flex items-center justify-center"
               onClick={handleCancelReviews}
             >
               <box-icon

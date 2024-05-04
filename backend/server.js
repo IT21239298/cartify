@@ -35,8 +35,13 @@ app.use("/api/seller", require("./routes/sellerRoute.js"));
 app.use(require("./routes/contactus.router.js"));
 
 app.use(require("./routes/cart.router.js"));
+app.use(require("./routes/review.route.js"));
+app.use(require("./routes/payment.route.js"));
+app.use(require("./routes/adminReview.Route.js"));
 
 app.use("/api/admin", require("./routes/adminRoute.js"));
+
+app.use("/api/item", require("./routes/itemsRoute.js"));
 
 con
   .then((db) => {

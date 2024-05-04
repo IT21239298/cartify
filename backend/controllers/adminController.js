@@ -1,4 +1,5 @@
 const User = require("../models/adminModel");
+const SellUser = require("../models/auth.model");
 
 exports.getAllUsers = async (req, res) => {
   try {
