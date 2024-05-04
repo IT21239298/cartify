@@ -24,7 +24,7 @@ import Menu from "./pages/cart/Menu";
 import AdminReview from "./pages/AdminReview";
 import Cart from "./pages/Cart";
 
-import Review from "./components/Review";
+// import Review from "./components/Review";
 import SellerDashboard from "./pages/seller/SellerDashboard";
 // import StarReview from "./components/StarReview";
 import SellerReview from "./pages/seller/SellerReview";
@@ -38,6 +38,9 @@ import Checkout from "./pages/Checkout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Analysis from "./pages/analys";
 import AddReview from "./components/reviews/addReviews";
+
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -61,13 +64,14 @@ function App() {
         <Route path="/customer" element={<Customer />} />
         <Route path="/cart" element={<Cart />} />
 
-        <Route path="/review" element={<Review />} />
+        {/* <Route path="/review" element={<Review />} /> */}
         <Route path="/reviewrating" element={<SellerReview />} />
         <Route path="/adminReview" element={<AdminReview />} />
 
-        <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="/Admincontact" element={<Admincontact />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/admin-contact" element={<Admincontact />} />
         <Route path="/NewShop" element={<Newshop />} />
+     
 
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
 

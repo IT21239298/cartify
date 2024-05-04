@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardFeature from "./CardFeature";
 import { useSelector } from "react-redux";
-import FilterProduct from "./FilterProduct";
+
 
 const AllProduct = ({ heading }) => {
   const productData = useSelector((state) => state.product.productList);
@@ -30,6 +30,7 @@ const AllProduct = ({ heading }) => {
   const loadingArrayFeature = new Array(10).fill(null);
   return (
     <div className="my-5">
+
       <h2 className="font-bold text-2xl text-slate-800 mb-4">
         Branded Product {heading}
       </h2>
@@ -49,6 +50,7 @@ const AllProduct = ({ heading }) => {
           <div className="flex justify-center  text-red-500 items-center h-full"></div>
         )}
       </div>
+
       <div className="flex flex-wrap justify-center gap-4 my-4">
         {dataFilter[0]
           ? dataFilter.map((el) => {
@@ -67,7 +69,7 @@ const AllProduct = ({ heading }) => {
               );
             })
           : loadingArrayFeature.map((el, index) => (
-              <CardFeature loading="Loading..." key={index + "allProduct"} />
+              <CardFeature loading="Loading..."  />
             ))}
       </div>
     </div>

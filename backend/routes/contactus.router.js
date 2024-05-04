@@ -5,7 +5,9 @@ const controller = require("../controllers/contactus.controller");
 ContactusRouter
 .route("/api/contactus")
 .post(controller.create_Contactus)
-.get(controller.get_Contactus);
+.get(controller.get_Contactus)
+.delete(controller.delete_Contactus);
+
 
 
 module.exports = ContactusRouter;
