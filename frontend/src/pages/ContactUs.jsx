@@ -5,16 +5,23 @@ import { useForm } from "react-hook-form";
 import { useAddContactMutation } from "../components/Store/apiSlice";
 
 // Simple Success Popup Component
+// Simple Success Popup Component
 const SuccessPopup = ({ onClose }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <p className="text-green-600 text-lg font-bold">Form submitted successfully!</p>
-      <button className="mt-4 bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-800" onClick={onClose}>
-        Close
-      </button>
+    <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center">
+      <div className="bg-white p-4 rounded-lg shadow-md">
+        <p className="text-green-600 text-lg font-bold">Form submitted successfully!</p>
+        <div className="flex justify-center mt-4"> 
+        <button className="mt-4 bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-800" onClick={onClose}>
+          Close
+        </button>
+        </div>
+      </div>
+      <div className="bg-black opacity-25 fixed top-0 left-0 right-0 bottom-0" onClick={onClose}></div>
     </div>
   );
 };
+
 
 export default function ContactUs({ ContactData }) {
   const {
@@ -48,9 +55,9 @@ export default function ContactUs({ ContactData }) {
   };
 
   return (
-    <div className="bg-white py-8">
+    <div className="bg-white py-8 relative">
       <div className="container flex items-center justify-between mx-auto px-4">
-      <div className="w-1/2 h-full">
+        <div className="w-1/2 h-full">
           <img src={contact} alt="contact" className="max-w-full h-1000" />
         </div>
         <div className="w-1/2 h-full">
@@ -58,7 +65,7 @@ export default function ContactUs({ ContactData }) {
             <div className="bg-white p-6 rounded-lg shadow-md w-96">
               <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
               <form id="form" onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-4">
+                <div className="mb-4">
                   <label htmlFor="name" className="block text-xl text-left font-sans font-bold text-blue-950">
                     Name
                   </label>
@@ -140,10 +147,9 @@ export default function ContactUs({ ContactData }) {
               </form>
             </div>
           </div>
-
-        {showSuccessPopup && <SuccessPopup onClose={closeSuccessPopup} />}
+        </div>
       </div>
-    </div>
+      {showSuccessPopup && <SuccessPopup onClose={closeSuccessPopup} />}
     </div>
   );
 }
